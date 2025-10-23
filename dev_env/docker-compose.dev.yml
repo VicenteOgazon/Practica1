@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  web:
+    image: app:dev
+    env_file:
+      - .env
+    ports:
+      - ${WEB_PORT}
+    volumes:
+      - ../app/:/app
+    environment:
+      - APP_ENV=development
+      - FLASK_APP=__init__:create_app
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_DEBUG=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - internal_net
+    depends_on:
+      - db_dev
+
+  db_dev:
+    image: mysql:8.0
+    env_file:
+      - .env
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+     - internal_net
+
+networks:
+  internal_net:
+volumes:
+  db_data:

@@ -1,0 +1,4 @@
+*.env
+Dockerfile
+docker-compose.prod.yml
+../app/__pycache__
