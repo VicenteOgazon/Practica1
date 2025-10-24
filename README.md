@@ -2,8 +2,6 @@
 
 A continuación se detallan las instrucciones para la **instalación y ejecución** de la aplicación utilizando **Docker** y **Makefile**.
 
----
-
 ## Requisitos
 
 Antes de comenzar, asegúrate de tener instalados los siguientes componentes:
@@ -115,37 +113,41 @@ También se incluye un usuario no root y permisos limitados dentro del contenedo
 
 Estructura del proyecto
 
+## Estructura del proyecto
+
+```bash
 Practica1/
 │
 ├── app/                        			# Código fuente de la aplicación Flask
-│   	├── __init__.py                	# Crea la app Flask y carga configuración
-│   	├── routes.py                  	# Blueprint con las rutas principales
-│   	├── cache.py                   	# Funciones de conexión y acceso a Redis
-│   	├── config.py                  	# Clases de configuración (dev/prod)
-│   	├── templates/
-│   	│   	├── index.html		        # Interfaz web principal
-│   	│   	└── status.html		        # Página del estado de los servicios
-│   	└── static/
-│       		└── style.css             # Estilos CSS de la interfaz
+│   ├── __init__.py                  # Crea la app Flask y carga configuración
+│   ├── routes.py                    # Blueprint con las rutas principales
+│   ├── cache.py                     # Funciones de conexión y acceso a Redis
+│   ├── config.py                    # Clases de configuración (dev/prod)
+│   ├── templates/
+│   │   ├── index.html		        # Interfaz web principal
+│   │   └── status.html		        # Página del estado de los servicios
+│   └── static/
+│       └── style.css                # Estilos CSS de la interfaz
 │
-├── dev_env/                    			# Entorno de desarrollo
-│   	├── Dockerfile                 	# Dockerfile para entorno desarrollo
-│   	├── docker-compose.dev.yml     	# Docker-compose desarrollo
-│   	├── .env                      	# Variables de entorno para dev
-│   	├── .dockerignore              	# Excluye archivos innecesarios en build desarrollo
-│   	├── init.sql                  	# Script SQL inicial (desarrollo)
-│   	└── requirements.txt           	# Dependencias de Python para desarrollo
+├── dev_env/                    		# Entorno de desarrollo
+│   ├── Dockerfile                   # Dockerfile para entorno desarrollo
+│   ├── docker-compose.dev.yml       # Docker-compose desarrollo
+│   ├── .env                         # Variables de entorno para dev
+│   ├── .dockerignore                # Excluye archivos innecesarios en build desarrollo
+│   ├── init.sql                     # Script SQL inicial (desarrollo)
+│   └── requirements.txt             # Dependencias de Python para desarrollo
 │
-├── prod_env/                   			# Entorno de producción
-│   	├── Dockerfile                 	# Dockerfile para entorno producción
-│   	├── docker-compose.prod.yml    	#  Docker-compose producción
-│   	├── .env                       	# Variables de entorno para producción
-│   	├── .dockerignore              	# Excluye archivos innecesarios en build producción
-│   	├── init.sql                   	# Script SQL inicial (producción)
-│   	└── requirements.txt           	# Dependencias de Python para producción
+├── prod_env/                   		# Entorno de producción
+│   ├── Dockerfile                   # Dockerfile para entorno producción
+│   ├── docker-compose.prod.yml      # Docker-compose producción
+│   ├── .env                         # Variables de entorno para producción
+│   ├── .dockerignore                # Excluye archivos innecesarios en build producción
+│   ├── init.sql                     # Script SQL inicial (producción)
+│   └── requirements.txt             # Dependencias de Python para producción
 │
-├── Makefile                       		# Automatiza tareas (build, up, down, logs, etc.)
-└── README.md                      		# Guía completa de instalación, uso y arquitectura
+├── Makefile                         # Automatiza tareas (build, up, down, logs, etc.)
+└── README.md                        # Guía completa de instalación, uso y arquitectura
+```
 
 ---
 ## Pruebas realizadas
@@ -157,21 +159,21 @@ Todas las pruebas han sido satisfactorias.
 
 | Nº |  Descripción de la prueba | Resultado  |
 |----|---------------------------|------------|
-| 1  | Se ha hecho el **build de la imagen** .....................................................................| ✅ OK |
-| 2  | Se han **levantado los servicios** con `docker compose` ...................................................| ✅ OK |
-| 3  | Acceso correcto a la aplicación: [http://localhost:5005](http://localhost:5005) ...........................| ✅ OK |
-| 4  | Acceso correcto al endpoint de estado: [http://localhost:5005/status](http://localhost:5005/status) .......| ✅ OK |
-| 5  | Se **cargan los usuarios** desde la base de datos .........................................................| ✅ OK |
-| 6  | Se **añade un nuevo usuario** correctamente ...............................................................| ✅ OK |
-| 7  | Se **elimina un usuario** correctamente ...................................................................| ✅ OK |
-| 8  | Se **detiene la base de datos** y la aplicación continúa funcionando ......................................| ✅ OK |
-| 9  | Con la BD parada, se intenta cargar usuarios y la app responde correctamente con error controlado .........| ✅ OK |
-| 10 | En el endpoint `/status`, el estado de la BD cambia a **DOWN** ............................................| ✅ OK |
-| 11 | Se **reinicia el contenedor de la base de datos** .........................................................| ✅ OK |
-| 12 | Se **vuelven a cargar los usuarios**, comprobando que la conexión se restablece ...........................| ✅ OK |
-| 13 | En el endpoint `/status`, el estado de la BD vuelve a **UP** ..............................................| ✅ OK |
-| 14 | Se **elimina la imagen de la base de datos** y se recrea sin errores ......................................| ✅ OK |
-| 15 | Se **cargan los usuarios nuevamente** comprobando la **persistencia de datos** ............................| ✅ OK |
+| 1  | Se ha hecho el **build de la imagen** | ✅ OK |
+| 2  | Se han **levantado los servicios** con `docker compose` | ✅ OK |
+| 3  | Acceso correcto a la aplicación: [http://localhost:5005](http://localhost:5005) | ✅ OK |
+| 4  | Acceso correcto al endpoint de estado: [http://localhost:5005/status](http://localhost:5005/status) | ✅ OK |
+| 5  | Se **cargan los usuarios** desde la base de datos | ✅ OK |
+| 6  | Se **añade un nuevo usuario** correctamente | ✅ OK |
+| 7  | Se **elimina un usuario** correctamente | ✅ OK |
+| 8  | Se **detiene la base de datos** y la aplicación continúa funcionando | ✅ OK |
+| 9  | Con la BD parada, se intenta cargar usuarios y la app responde correctamente con error controlado | ✅ OK |
+| 10 | En el endpoint `/status`, el estado de la BD cambia a **DOWN** | ✅ OK |
+| 11 | Se **reinicia el contenedor de la base de datos** | ✅ OK |
+| 12 | Se **vuelven a cargar los usuarios**, comprobando que la conexión se restablece | ✅ OK |
+| 13 | En el endpoint `/status`, el estado de la BD vuelve a **UP** | ✅ OK |
+| 14 | Se **elimina la imagen de la base de datos** y se recrea sin errores | ✅ OK |
+| 15 | Se **cargan los usuarios nuevamente** comprobando la **persistencia de datos** | ✅ OK |
 
 
 **Conclusión:**  
@@ -186,22 +188,22 @@ Se ha realizado un conjunto de pruebas para verificar el correcto funcionamiento
 
 | Nº |  Descripción de la prueba | Resultado  |
 |----|---------------------------|------------|
-| 1  | Se ha hecho el **build de la imagen** con `make build-prod` .........................................................| ✅ OK |
-| 2  | Se han **levantado los servicios** `web`, `db` y `cache` con `make up-prod` .........................................| ✅ OK |
-| 3  | Acceso correcto a la aplicación: [http://localhost:5010](http://localhost:5010) .....................................| ✅ OK |
-| 4  | Acceso correcto al endpoint de estado: [http://localhost:5010/status](http://localhost:5010/status) .................| ✅ OK |
-| 5  | Se **cargan los usuarios** desde la base de datos MySQL .............................................................| ✅ OK |
-| 6  | Se **añade un nuevo usuario** y se refleja correctamente en la interfaz .............................................| ✅ OK |
-| 7  | Se **elimina un usuario** correctamente .............................................................................| ✅ OK |
-| 8  | Se **detiene la base de datos (MySQL)**, se cargan usuarios, cargan desde la caché ..................................| ✅ OK |
-| 9  | En el endpoint `/status`, el estado de la BD cambia a **DOWN** ......................................................| ✅ OK |
-| 10 | Se **vuelve a iniciar el contenedor de MySQL** y se restablece la conexión ..........................................| ✅ OK |
-| 11 | Se **vuelven a cargar los usuarios**, comprobando que la aplicación vuelve a usar la base de datos ..................| ✅ OK |
-| 12 | En el endpoint `/status`, la BD vuelve a **UP** .....................................................................| ✅ OK |
-| 13 | Se **detiene el contenedor de Redis (cache)** y se accede al endpoint, caché **DOWN** ...............................| ✅ OK |
-| 14 | La aplicación continúa funcionando accediendo directamente a la base de datos .......................................| ✅ OK |
-| 15 | Se **vuelve a inicar el contenedor Redis** y el estado vuelve a **UP** automáticamente ..............................| ✅ OK |
-| 16 | Se comprueba el estado de los contenedores con `docker ps`, todos **healthy**........................................| ✅ OK |
+| 1  | Se ha hecho el **build de la imagen** con `make build-prod` | ✅ OK |
+| 2  | Se han **levantado los servicios** `web`, `db` y `cache` con `make up-prod` | ✅ OK |
+| 3  | Acceso correcto a la aplicación: [http://localhost:5010](http://localhost:5010) | ✅ OK |
+| 4  | Acceso correcto al endpoint de estado: [http://localhost:5010/status](http://localhost:5010/status) | ✅ OK |
+| 5  | Se **cargan los usuarios** desde la base de datos MySQL | ✅ OK |
+| 6  | Se **añade un nuevo usuario** y se refleja correctamente en la interfaz | ✅ OK |
+| 7  | Se **elimina un usuario** correctamente | ✅ OK |
+| 8  | Se **detiene la base de datos (MySQL)**, se cargan usuarios, cargan desde la caché | ✅ OK |
+| 9  | En el endpoint `/status`, el estado de la BD cambia a **DOWN** | ✅ OK |
+| 10 | Se **vuelve a iniciar el contenedor de MySQL** y se restablece la conexión | ✅ OK |
+| 11 | Se **vuelven a cargar los usuarios**, comprobando que la aplicación vuelve a usar la base de datos | ✅ OK |
+| 12 | En el endpoint `/status`, la BD vuelve a **UP** | ✅ OK |
+| 13 | Se **detiene el contenedor de Redis (cache)** y se accede al endpoint, caché **DOWN** | ✅ OK |
+| 14 | La aplicación continúa funcionando accediendo directamente a la base de datos | ✅ OK |
+| 15 | Se **vuelve a inicar el contenedor Redis** y el estado vuelve a **UP** automáticamente | ✅ OK |
+| 16 | Se comprueba el estado de los contenedores con `docker ps`, todos **healthy** | ✅ OK |
 
 ---
 
