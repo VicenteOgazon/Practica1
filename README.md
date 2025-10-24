@@ -79,8 +79,6 @@ No se incluye Redis como memoria caché
 - Define únicamente los servicios `web` (Flask) y `db` (MySQL).  
 - Usa variables de entorno desde el archivo `.env`.  
 
----
-
 ### Entorno de producción
 
 El entorno de **producción** está diseñado para ejecutar la aplicación en un entorno estable, seguro e inmutable.  
@@ -95,8 +93,6 @@ También se incluye un usuario no root y permisos limitados dentro del contenedo
   - `cache` → Redis como sistema de caché en memoria.  
 - Solo el servicio `web` expone un puerto al exterior (por ejemplo, `5010:5000`).  
 - Gestiona las variables sensibles mediante `.env`.
-
----
 
 **Resumen comparativo**
 
@@ -205,15 +201,11 @@ Se ha realizado un conjunto de pruebas para verificar el correcto funcionamiento
 | 15 | Se **vuelve a inicar el contenedor Redis** y el estado vuelve a **UP** automáticamente | ✅ OK |
 | 16 | Se comprueba el estado de los contenedores con `docker ps`, todos **healthy** | ✅ OK |
 
----
-
 **Conclusión:**  
 El entorno de producción funciona correctamente.  
 Redis almacena en caché las consultas y permite continuar haciendo las consultas cacheadas.  
 Los *healthchecks* reflejan en tiempo real el estado de los servicios (`web`, `db`, `cache`).
 Solo el servicio `web` expone su puerto al exterior, cumpliendo con las medidas de aislamiento y seguridad.
-
-
 
 ---
 ### Healthcheck
